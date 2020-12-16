@@ -1,5 +1,7 @@
-import numpy as np
 import time
+
+import numpy as np
+import torch
 
 
 class Timer:
@@ -30,3 +32,7 @@ class Timer:
         """Return the accumulated time."""
         return np.array(self.times).cumsum().tolist()
 
+def try_gpu(use_cpu = False):
+    if use_cpu:
+        torch.device("cpu")
+    return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
