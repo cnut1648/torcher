@@ -3,15 +3,15 @@
 # from setuptools import find_packages, setup
 from distutils.core import setup
 
-with open('README.md') as readme_file:
-    readme = readme_file.read()
+# with open('README.md') as readme_file:
+#     readme = readme_file.read()
 #
 # with open('requirements.txt') as requirements_file:
 #     requirements = requirements_file.readlines()
 
 setup(
     name='Torcherist',
-    version='0.1.0',
+    version='0.1.1',
     description='utils codes for pyTorch',
     author="Jiashu Xu",
     author_email='1999J0615une@gmail.com',
