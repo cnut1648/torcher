@@ -1,10 +1,15 @@
-.. torcher documentation master file, created by
-   sphinx-quickstart on Sun Dec 13 16:47:22 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to torcher's documentation!
 ===================================
+
+.. autosummary:: torcher.base
+   :toctree: modules
+
+   torcher
+   torcher.nlp
+   torcher.dataset
+   torcher.dataset.ontology
+   torcher.dataset.text
+   torcher.train
 
 .. toctree::
    :maxdepth: 2

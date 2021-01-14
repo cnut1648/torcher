@@ -211,14 +211,14 @@ class Onet(CompetencyOntology):
             logging.info(f"Processing {content_model_file}")
             for row in reader.reader(content_model_file):
                 scale, score = row["Scale ID"], float(row["Data Value"])
-                # only for those important and Onet rating > 3
-                # NOTE! Work Context has no IM, thus no work context is accessed
-                if (scale == 'IM' and score >= 3) or \
-                        (scale == "CXP" and score >= 50):
+                # for knowledge, AbilitSkills, WorkStyle, WorkActivity: importance IM (1-5)
+                # for Interests: RIASEC level OI of interest (1-7)
+                # for Work Context: percent of respondents endorsing CXP (0-100)
+                if scale in ['IM', 'OI', 'CXP']:
                     competency = Competency(
                         identifier=row['Element ID'],
                         name=row['Element Name'],
-                        categories=[content_model_file],
+                        categories=[content_model_file, f"{scale}-{score}"],
                         competencyText=description_lookup[row['Element ID']]
                     )
                     self.add_competency(competency)
@@ -228,13 +228,15 @@ class Onet(CompetencyOntology):
         logging.info('Processing tools and technology')
         for file in ["Technology Skills", "Tools Used"]:
             for row in reader.reader(file):
+                commodity = row['Commodity Title']
                 cat = "Tech Skills" if file == "Technology Skills" else "Tools"
-                hot = "HOT" if file == "Technology Skills" and row["Hot Technology"] == "Y" else ""
+                hot = ["HOT"] if file == "Technology Skills" and row["Hot Technology"] == "Y" else []
                 # no competencyText
                 competency = Competency(
-                    identifier=row["Commodity Code"],
-                    name=row['Commodity Title'],
-                    categories=[cat] + ([hot] if hot else []),
+                    # id = <commodity id>-<skill name> since otherwise only add commodity
+                    identifier=row["Commodity Code"] + "-" + row["Example"],
+                    name=row['Example'],
+                    categories=[cat] + hot + [commodity],
                 )
                 self.add_competency(competency)
                 occupation = Occupation(identifier=row['O*NET-SOC Code'])

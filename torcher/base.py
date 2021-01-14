@@ -32,7 +32,25 @@ class Timer:
         """Return the accumulated time."""
         return np.array(self.times).cumsum().tolist()
 
+
+class Benchmark:
+    """context manager that print time
+
+    with Benchmark("desc"):
+        X @ W + b
+    """
+    def __init__(self, description='Done'):
+        self.description = description
+
+    def __enter__(self):
+        self.timer = Timer()
+        return self
+
+    def __exit__(self, *args):
+        print(f'{self.description}: {self.timer.stop():.4f} sec')
+
+
 def try_gpu(use_cpu = False):
     if use_cpu:
-        torch.device("cpu")
+        return torch.device("cpu")
     return torch.device('cuda' if torch.cuda.is_available() else 'cpu')

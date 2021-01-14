@@ -1,42 +1,45 @@
 import torch
 import torch.nn as nn
+from typing import Optional
 
 
-def sequence_mask(X, valid_len, value: int = 0):
+def sequence_mask(valid_len, max_len: Optional[int] = None):
     """
-    Mask irrelevant entries in X to `value`
-    :param X: shape (N, m, ...)
-    :param valid_len: shape (N, ), X_i's m values if after valid_len_i, irrelevant
+    find valid_len's corresponding mask
+    Args:
+        valid_len: (d_1, ..., d_n), each ele is valid len for some matrix of shape (d_1, ..., d_n, d),
+            eg. if valid_len[1,2,3] = 6, then matrix[1,2,3] (an array) after 6th ele would marked irrelevant, thus False
+        max_len: if None `max_len = max(valid_len)` the max of all valid_len ele
+
+    Returns:
+        mask: (d_1, ..., d_n, max_len),
+            mask[i_1, ..., i_n, i] = i < valid_len[i_1, ..., i_n]
+            thus matrix[~mask] would be those irrelevant fields
     """
-    # m
-    maxlen = X.size(1)
-    # (1, m) < (N, 1)
-    # broadcast (N, m)
-    # LHS each row copy of 1 ... m
+    if not max_len:
+        max_len = torch.max(valid_len)
+    # (1, m) < (d_1, ..., d_n , 1)
+    # broadcast (d_1, ..., d_n, m)
+    # LHS each row (high-dim) copy of 1 ... m
     # RHS each column copy of valid_len
     # True if less than valid_len's value, thus relevant
-    mask = torch.arange(maxlen,
+    mask = torch.arange(max_len,
                         dtype=torch.float32,
-                        device=X.device)[None, :] < valid_len[:, None]
-    print(mask)
+                        device=valid_len.device)[None, :] < valid_len[..., None]
 
+    return mask
+
+def fill_sequence_mask(X, valid_len, value: int = 0):
+    """
+    fill mask of X to be `value`
+    Args:
+        X: input tensor (d_1, ..., d_n, d)
+        valid_len: (d_1, ..., d_n), valid_len[i_1, ..., i_n] (int) is the valid len of X[i_1, ..., i_n] (row)
+        value: scalar
+
+    Returns:
+        None, inplace change
+    """
+    mask = sequence_mask(valid_len, X.size(-1))
     X[~mask] = value
-    return X
-
-
-class MaskedSoftmaxCELoss(nn.CrossEntropyLoss):
-    """The softmax cross-entropy loss with masks."""
-
-    # `pred` shape: (`batch_size`, `num_steps`, `vocab_size`)
-    # `label` shape: (`batch_size`, `num_steps`)
-    # `valid_len` shape: (`batch_size`,)
-    def forward(self, pred, label, valid_len):
-        weights = torch.ones_like(label)
-        weights = sequence_mask(weights, valid_len)
-        self.reduction = 'none'
-        print(pred.permute(0,2,1).shape, label.shape)
-        unweighted_loss = super(MaskedSoftmaxCELoss, self).forward(
-            pred.permute(0, 2, 1), label)
-        weighted_loss = (unweighted_loss * weights).mean(dim=1)
-        return weighted_loss
 

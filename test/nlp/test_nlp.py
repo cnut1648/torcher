@@ -7,8 +7,8 @@ doc = read_ptb()
 vocab = Vocab(doc)
 
 
-def test_count_corpus():
-    counter = count_corpus(doc)
+def test_count_text():
+    counter = count_text(doc)
     assert counter["the"] == 50770
 
 
