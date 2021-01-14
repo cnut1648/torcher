@@ -128,7 +128,7 @@ class OnetReader:
 
     def __init__(self, onet_dir: Path, version="25_1"):
         self.onet_dir = onet_dir
-        self.onet_dir.mkdir(exist_ok=True)
+        self.onet_dir.mkdir(parents=True, exist_ok=True)
         self.downloader = OnetDownloader(to=self.onet_dir, version=version)
 
     def reader(self, filename: str) -> csv.DictReader:

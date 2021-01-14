@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-# from distutils.core import setup
 from setuptools import find_packages, setup
 
 setup(
@@ -11,8 +10,7 @@ setup(
     author_email='1999J0615une@gmail.com',
     url='https://github.com/cnut1648/torcher',
     download_url='https://github.com/cnut1648/torcherist/archive/v0.1.2.tar.gz',
-    # packages=["torcherist"],
-    packages = find_packages(),
+    packages=find_packages(),
     license="MIT license",
     keywords=['nlp', 'skills', 'onet', 'pytorch'],
     install_requires=[
@@ -22,7 +20,8 @@ setup(
         'matplotlib',
         'requests',
         'nltk',
-        'torch'
+        'torch',
+        'cached_property'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
