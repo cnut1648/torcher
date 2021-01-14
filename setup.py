@@ -15,17 +15,25 @@ setup(
     author="Jiashu Xu",
     author_email='1999J0615une@gmail.com',
     url='https://github.com/cnut1648/torcher',
+    download_url='https://github.com/cnut1648/torcher/archive/v0.1.tar.gz',
     packages=["Torcher"],
     license="MIT license",
-    keywords='nlp jobs skills onet pytorch',
+    keywords=['nlp', 'skills', 'onet', 'pytorch'],
+    install_requires=[            # I get to this in a second
+        'beautifulsoup4',
+        'numpy',
+        'graphviz',
+        'matplotlib',
+        'requests',
+        'nltk',
+        'torch'
+    ],
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
     ],
-    test_suite='tests',
-    tests_require=test_requirements
 )
