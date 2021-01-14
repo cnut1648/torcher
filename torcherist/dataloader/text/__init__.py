@@ -1,9 +1,9 @@
 import random
 
-from torcher.nlp import Corpus, flatten_text, Vocab
+from torcherist.nlp import Corpus, flatten_text, Vocab
 from typing import List
 import random
-from torcher.dataset.text import read_time_machine
+from torcherist.dataset.text import read_time_machine
 import torch
 
 def sequential_text_sampler(corpus: List[int],

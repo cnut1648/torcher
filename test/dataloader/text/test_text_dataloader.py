@@ -1,5 +1,5 @@
-from torcher.dataloader.text import *
-from torcher.dataset.text import read_ptb
+from torcherist.dataloader.text import *
+from torcherist.dataset.text import read_ptb
 import pytest
 import numpy as np
 import random

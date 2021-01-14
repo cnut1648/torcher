@@ -8,7 +8,7 @@ import requests
 from collections.abc import MutableMapping, KeysView
 
 from . import CompetencyOntology, Competency, Occupation
-from torcher.config import dataset_dir
+from torcherist.config import dataset_dir
 from pathlib import Path
 
 logger = logging.getLogger(__name__)

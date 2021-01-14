@@ -6,7 +6,7 @@ from zipfile import ZipFile
 
 from nltk import word_tokenize, sent_tokenize
 
-from torcher.config import dataset_dir
+from torcherist.config import dataset_dir
 
 Sentence = List["word"]
 

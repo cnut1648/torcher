@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from torcher.tensor import *
+from torcherist.tensor import *
 
 def test_sequence_mask():
     # X = torch.tensor([[1, 2, 3], [4, 5, 6]])

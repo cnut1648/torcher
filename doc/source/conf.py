@@ -20,7 +20,7 @@ print(target_dir)
 
 # -- Project information -----------------------------------------------------
 
-project = 'torcher'
+project = 'torcherist'
 copyright = '2020, jiashu xu'
 author = 'jiashu xu'
 

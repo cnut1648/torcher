@@ -1,5 +1,5 @@
-from torcher.nlp import *
-from torcher.dataset.text import read_ptb
+from torcherist.nlp import *
+from torcherist.dataset.text import read_ptb
 import pytest
 from itertools import tee
 

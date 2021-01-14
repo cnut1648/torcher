@@ -1,4 +1,4 @@
-from torcher.config import dataset_dir
+from torcherist.config import dataset_dir
 from pathlib import Path
 
 

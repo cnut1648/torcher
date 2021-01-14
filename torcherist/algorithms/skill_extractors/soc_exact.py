@@ -1,5 +1,5 @@
 # from skills_ml.ontologies.base import CompetencyOntology
-from torcher.dataset.ontology import CompetencyOntology
+from torcherist.dataset.ontology import CompetencyOntology
 
 from .exact_match import ExactMatchSkillExtractor
 

@@ -5,10 +5,10 @@ from abc import ABCMeta, abstractmethod
 from collections import Counter, namedtuple
 
 
-from torcher.algorithms.skill_extractors.corpus import SimpleCorpusCreator
+from torcherist.algorithms.skill_extractors.corpus import SimpleCorpusCreator
 
 from .. import nlp
-from torcher.dataset.ontology import CompetencyFramework
+from torcherist.dataset.ontology import CompetencyFramework
 # from skills_ml.ontologies.base import CompetencyFramework
 
 from typing import Dict, Callable, Text, Generator

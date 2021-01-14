@@ -1,4 +1,4 @@
-from torcher.algorithms.nlp import clean_html, lowercase_strip_punc
+from torcherist.algorithms.nlp import clean_html, lowercase_strip_punc
 
 class CorpusCreator(object):
     """
